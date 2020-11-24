@@ -30,17 +30,50 @@ namespace power
         
         
     }
+
+    int improved(int base, int expo)
+    {
+        if(expo == 0)
+        {
+            return 1;
+        }
+        else if(expo < 0)
+        {
+            return 0;
+        }
+
+        if(expo == 1)
+        {
+            return base;
+        }
+
+        if(expo % 2 == 0)
+        {
+            expo /= 2;
+            base = improved(base, expo);
+            base *= base;
+            
+        }
+        else
+        {
+            base *= improved(base, expo-1);
+        }
+        return base;
+    }
 }
+
+
+
 
 
 int main()
 {
-    int base, expo;
+    int base, expo, choice;
 
-    std::cout << "Dieses Programm berechnet Potenzen, dazu bitte zunächst die Basis und im nächsten Schritt den Exponenten angeben.\n" << std::endl;
-    std::cout << "Bitte eine Basis angeben: ";
+    std::cout << "# Dieses Programm berechnet Potenzen, dazu bitte zunächst die Basis und im nächsten Schritt einen positiven Exponenten angeben #\n" << std::endl;
+    std::cout << "Basis: ";
     std::cin >> base;
-    std::cout << "Bitten einen Exponeneten angeben: ";
+    std::cout << "Exponent: ";
     std::cin >> expo;
 
     if (expo < 0)
@@ -49,8 +82,17 @@ int main()
         return 0;
     }
 
-    std::cout << "Iterativ berechnetes Ergebnis: " << power::iterative(base, expo) << std::endl;
-    std::cout << "Rekursiv berechnetes Ergebnis: " << power::recursive(base, expo) << std::endl;
+    std::cout << "Soll das Ergebnis Iterativ(0), Rekursiv(1), oder Verbessert(2) berechnet werden?" << std::endl;
+    std::cin >> choice;
+
+    if (choice == 0)
+        std::cout << "Iterativ berechnetes Ergebnis: " << power::iterative(base, expo) << std::endl;
+    else if (choice == 1)
+        std::cout << "Rekursiv berechnetes Ergebnis: " << power::recursive(base, expo) << std::endl;
+    else if (choice ==2)
+        std::cout << "Verbesserte Berechnung Ergebnis: " << power::improved(base, expo) << std::endl;
+    else    
+        std::cout << "Eingabe nicht zutreffend";
 
     return 0;
 }
