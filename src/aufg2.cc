@@ -9,7 +9,7 @@ namespace power
         {
             for (int i=1; i<n; i++)
             {
-                q*=cache;
+                q *= cache;
             }
         }
         else
@@ -19,16 +19,11 @@ namespace power
     }
 
     int recursive(int q, int n)
-    {
-        
-        
+    {  
         if (n==0)
-            return 1;
-        n--;    
-        if (n > 0)
-            q *= recursive(q, n);
-        
-        
+            return 1;   
+        else if (n > 0)
+            return q * recursive(q, n - 1);
     }
 
     int improved(int base, int expo)
@@ -37,20 +32,14 @@ namespace power
         {
             return 1;
         }
-        else if(expo < 0)
-        {
-            return 0;
-        }
-
-        if(expo == 1)
+        else if(expo == 1)
         {
             return base;
         }
 
         if(expo % 2 == 0)
         {
-            expo /= 2;
-            base = improved(base, expo);
+            base = improved(base, expo/2);
             base *= base;
             
         }
@@ -61,10 +50,6 @@ namespace power
         return base;
     }
 }
-
-
-
-
 
 int main()
 {
@@ -90,7 +75,7 @@ int main()
     else if (choice == 1)
         std::cout << "Rekursiv berechnetes Ergebnis: " << power::recursive(base, expo) << std::endl;
     else if (choice ==2)
-        std::cout << "Verbesserte Berechnung Ergebnis: " << power::improved(base, expo) << std::endl;
+        std::cout << "Ergebnis verbesserte Berechnung: " << power::improved(base, expo) << std::endl;
     else    
         std::cout << "Eingabe nicht zutreffend";
 

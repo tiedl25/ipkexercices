@@ -14,7 +14,6 @@ double root_iterative(double q, int n, int steps)
     double quot = n; //n als Double Variable um Rundungsfehler zu vermeiden
 
     //Berechnung n-te Wurzel
-
     for (int j=1; j<steps; j++)
     {
         cache = result;
@@ -42,8 +41,8 @@ void test_root(double q, int n, int steps)
     }
 
     //Runden für genaue Ergebnisse
-    q = round(q);
-    potence = round (potence);
+    q = round(q * 100000.0) / 100000.0;
+    potence = round (potence * 100000.0) / 100000.0;
 
     //Ausgabe der Parameter
     std::cout << "q: " << q << std::endl;
