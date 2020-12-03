@@ -19,6 +19,7 @@ std::vector<std::array<double, 2>> read_points_from_file(std::string filename)
         while(std::getline(file, line))
         {
             cache = line.find(" ");
+            
             pointVector.push_back({stod(line.substr(0, cache)), stod(line.substr(cache, sizeof(line)))});
             i++;
         }
@@ -110,12 +111,6 @@ void convex_hull(std::vector<std::array<double, 2>>& points)
     grahamStack = grahamScan(points, grahamStack);
     
     write_points_in_file("hull.txt", grahamStack);
-
-    /*for(int i=0; i<grahamStack.size(); i++)
-    {
-        std::cout << "\t\tPunkt " << i+1 << " x: " << grahamStack[i][0];
-        std::cout << "\ty: " << grahamStack[i][1] << std::endl;
-    }*/
 }
 
 int main()
