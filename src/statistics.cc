@@ -20,8 +20,6 @@ double mean(const std::vector<double>& v)
 
 double median(const std::vector<double>& v)
 {
-    if(v.size() == 0)
-        return 0;
     std::vector<double> vSorted = v;
     std::sort(vSorted.begin(), vSorted.end());
 

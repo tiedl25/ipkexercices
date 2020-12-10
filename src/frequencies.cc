@@ -11,9 +11,9 @@ std::map<char, int> get_frequencies()
         unsigned char c;
         // read in character
         std::cin >> c;
-        // abort if input closed
+        
         c = toupper(c);
-
+        // abort if input closed
         if (not std::cin)
             break;
         // work with c
