@@ -39,12 +39,12 @@ double median(const std::vector<double>& v)
 
 double moment(const std::vector<double>& v, int k)
 {
-    double mid = (double)v[0];
+    double mid = 0;
     double potence = 0;
     for(double i : v)
     {
         potence = i;
-        for(int j=0; j<k; j++)
+        for(int j=0; j<k-1; j++)
         {
             potence *= i;
         }
