@@ -3,39 +3,6 @@
 #include <cmath>
 #include <iostream>
 
-/*IterationResult iterateMandel(Point z, Point c, double threshold, int maxIt, bool smooth=false)
-{
-    IterationResult iterationResult;
-    double distance;
-    double norm;
-    Point p = z;
-    iterationResult.setPoint(p);
-    iterationResult.setIterations(0);
-    for(int i=0; i<maxIt; i++)
-    {
-        Point p((std::pow(iterationResult.getPoint().getX(), 2)-std::pow(iterationResult.getPoint().getY(), 2) + c.getX()), (2*iterationResult.getPoint().getX()*iterationResult.getPoint().getY() + c.getY()));
-        
-        iterationResult.setPoint(p);
-        iterationResult.setIterations(i+1);
-        distance = sqrt(std::pow(p.getX()-c.getX(), 2) + std::pow(p.getY()-c.getY(), 2));
-
-        
-        if(smooth)
-        {
-            norm = sqrt(std::pow(p.getX(), 2) + std::pow(p.getY(), 2));
-            float k = i - log2(log1p(norm)/log1p(threshold));
-            iterationResult.setIterations(k);
-        }
-        
-        if(distance >= threshold)
-        { 
-            return iterationResult;
-        }
-            
-    }
-    return iterationResult;
-}*/
-
 IterationResult iterate(Point z, Point c, double threshold, int maxIt, bool smooth=false)
 {
     IterationResult iterationResult;
