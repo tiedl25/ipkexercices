@@ -9,7 +9,7 @@ double Canvas::brightness(int i, int j) const
     return _pixels[i][j];
 }
 
-void Canvas::setBrightness(int i, int j, double brightness)
+void Canvas::setBrightness(int i, int j, long double brightness)
 {
     _pixels[i][j] = brightness;
 }

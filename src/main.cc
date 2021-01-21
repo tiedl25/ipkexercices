@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iostream>
 
-IterationResult iterateMandel(Point z, Point c, double threshold, int maxIt, bool smooth=false)
+/*IterationResult iterateMandel(Point z, Point c, double threshold, int maxIt, bool smooth=false)
 {
     IterationResult iterationResult;
     double distance;
@@ -34,7 +34,7 @@ IterationResult iterateMandel(Point z, Point c, double threshold, int maxIt, boo
             
     }
     return iterationResult;
-}
+}*/
 
 IterationResult iterate(Point z, Point c, double threshold, int maxIt, bool smooth=false)
 {
@@ -44,19 +44,20 @@ IterationResult iterate(Point z, Point c, double threshold, int maxIt, bool smoo
     Point p = z;
     iterationResult.setPoint(p);
     iterationResult.setIterations(0);
-    for(int i=0; i<maxIt; i++)
+    for(int i=1; i<maxIt; i++)
     {
         Point p((std::pow(iterationResult.getPoint().getX(), 2)-std::pow(iterationResult.getPoint().getY(), 2) + c.getX()), (2*iterationResult.getPoint().getX()*iterationResult.getPoint().getY() + c.getY()));
         
         iterationResult.setPoint(p);
-        iterationResult.setIterations(i+1);
+        iterationResult.setIterations(i);
+        
         distance = sqrt(std::pow(p.getX()-c.getX(), 2) + std::pow(p.getY()-c.getY(), 2));
 
         
         if(smooth)
         {
             norm = sqrt(std::pow(p.getX(), 2) + std::pow(p.getY(), 2));
-            float k = i - log2(log1p(norm)/log1p(threshold));
+            double k = iterationResult.getIterations() - log2(log(norm)/log(threshold));
             iterationResult.setIterations(k);
         }
 
@@ -66,40 +67,38 @@ IterationResult iterate(Point z, Point c, double threshold, int maxIt, bool smoo
     return iterationResult;
 }
 
-void mandelbrot(Canvas& canvas, double threshold, int maxIt, std::string filename)
+void mandelbrot(Canvas& canvas, double threshold, int maxIt, std::string filename, bool smooth=false)
 {
     for(int i=0; i<canvas.getHor(); ++i)
     { 
         for(int j=0; j<canvas.getVert(); ++j)
         {
-            IterationResult iterationResult = iterateMandel(Point(0.0, 0.0), canvas.coord(i, j), threshold, maxIt, true);
+            IterationResult iterationResult = iterate(Point(0.0, 0.0), canvas.coord(i, j), threshold, maxIt, smooth);
             if(iterationResult.getIterations() == maxIt)
             {
                 canvas.setBrightness(i, j, 0);
             }
             else
             {
-                canvas.setBrightness(i, j, std::log(iterationResult.getIterations()) * 100);
+                canvas.setBrightness(i, j, std::log(iterationResult.getIterations()) * 100); 
+                if(canvas.brightness(i, j) < 0)
+                {
+                    canvas.setBrightness(i, j, 0);
+                }     
                 
             }
-            std::cout << canvas.brightness(i, j) << std::endl;
-
-            if(i*j+1 == 60151 || i*j+1 == 90151)
-                canvas.setBrightness(i, j, 691);
         }
     }
-
-    canvas.write(filename);
-    
+    canvas.write(filename+std::to_string(smooth));
 }
 
-void julia (Point c, Canvas& canvas, double threshold, int maxIt, std::string filename)
+void julia (Point c, Canvas& canvas, double threshold, int maxIt, std::string filename, bool smooth=false)
 {
     for(int i=0; i<canvas.getHor(); ++i)
     { 
         for(int j=0; j<canvas.getVert(); ++j)
         {
-            IterationResult iterationResult = iterate(canvas.Coord(i, j), c, threshold, maxIt, true);
+            IterationResult iterationResult = iterate(canvas.Coord(i, j), c, threshold, maxIt, smooth);
             if(iterationResult.getIterations() == maxIt)
             {
                 canvas.setBrightness(i, j, 0);
@@ -107,21 +106,23 @@ void julia (Point c, Canvas& canvas, double threshold, int maxIt, std::string fi
             else
             { 
                 canvas.setBrightness(i, j, std::log(iterationResult.getIterations()) * 100);
+                if(canvas.brightness(i, j) < 0)
+                {
+                    canvas.setBrightness(i, j, 0);
+                }                  
             }
-
-
-            
         }
     }
 
-    canvas.write(filename);
+    canvas.write(filename+std::to_string(smooth));
 }
 
 int main()
 {
-    Canvas canvas(Point(-1, 0), 4, 3, 400, 300);
-    mandelbrot(canvas, 1000, 1000, "../mandelbrotImage");
+    Canvas canvas(Point(-1, 0), 4, 3, 4000, 3000);
+    //mandelbrot(canvas, 1000, 1000, "../mandelbrotImage");
+
     Point c(-0.8, 0.156);
     Canvas canvas2(c, 4, 3, 400, 300);
-    julia(c, canvas2, 1000, 1000, "../juliaImage");
+    julia(c, canvas2, 1000, 1000, "../juliaImagetest");
 }

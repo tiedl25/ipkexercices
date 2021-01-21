@@ -10,17 +10,17 @@ class IterationResult
         IterationResult(Point point, int iterations);
 
         Point getPoint();
-        float getIterations();
+        double getIterations();
 
         void setPoint(Point &point);
-        void setIterations(float iterations);
+        void setIterations(double iterations);
 
         
 
         ~IterationResult();
     private:
         Point _point;
-        float _iterations;
+        double _iterations;
 
 };
 

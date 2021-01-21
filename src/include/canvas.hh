@@ -20,7 +20,7 @@ class Canvas
         ~Canvas();
 
         double brightness(int i, int j) const;
-        void setBrightness(int i, int j, double brightness);
+        void setBrightness(int i, int j, long double brightness);
         int getHor();
         int getVert();
         Point coord(int i, int j) const;

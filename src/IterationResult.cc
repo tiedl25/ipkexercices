@@ -11,7 +11,7 @@ Point IterationResult::getPoint()
 {
     return _point;
 }
-float IterationResult::getIterations()
+double IterationResult::getIterations()
 {
     return _iterations;
 }
@@ -20,7 +20,7 @@ void IterationResult::setPoint(Point &point)
 {
     _point = point;
 }
-void IterationResult::setIterations(float iterations)
+void IterationResult::setIterations(double iterations)
 {
     _iterations = iterations;
 }
