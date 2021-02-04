@@ -37,6 +37,7 @@ class Frequencies
                 if (not data.second)
                     break;
                 // work with letter in data.first
+                if(_filter.remove(data.first)) continue;
                 auto next = _filter.transform(data.first);
                 _letterMap[next] += 1;
             }

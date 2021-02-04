@@ -20,7 +20,7 @@ class Letterfrequencies
               if (not data.second)
                 break;
               // work with letter in data.first
-              std::isalpha(data.first);
+              if(!std::isalpha(data.first)) continue;
               _letterMap[std::toupper(data.first)] += 1;
             }
         }

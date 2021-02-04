@@ -30,9 +30,13 @@ class Filter <char>
         // version (e.g. capitalizes all letters)
         char transform(const char& data)
         {
-            char c = std::toupper(data);
-            if(!std::isalpha(c)) return '0';
-            return c;
+            return std::toupper(data);
+        }
+
+        bool remove(const char& data)
+        {
+            if(!std::isalpha(data)) return true;
+            return false;
         }
 };
 
@@ -44,13 +48,21 @@ class Filter <std::string>
         // version (e.g. capitalizes all letters)
         std::string transform (const std::string& data)
         {
-            std::string dataTransformed = data;
+            std::string dataTransformed;
             for(int i=0; i<data.length(); ++i)
             {
-                if(std::isalpha(data.at(i)) != 0) continue;
                 dataTransformed.push_back(std::toupper(data.at(i)));
             }
             return dataTransformed;
+        }
+
+        bool remove(const std::string& data)
+        {
+            for(int i=0; i<data.length(); ++i)
+            {
+                if(!std::isalpha(data.at(i))) return true;
+            }
+            return false;
         }
 };
 
