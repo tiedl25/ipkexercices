@@ -13,7 +13,6 @@ class Letterfrequencies
         template<typename Source>
         void readData(Source& source)
         {
-            
             while (true)
             {
               auto data = source.next();

@@ -5,7 +5,7 @@
 
 int main()
 {
-    Letterfrequencies<std::map<char, int>> frequencies{};
+    Letterfrequencies<std::map<char, int>> frequencies;
     auto source = streamLetterSource(std::cin);
   
     frequencies.readData(source);
